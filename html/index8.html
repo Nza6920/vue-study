@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Vue中的class绑定</title>
+    <script src="../js/vue.js"></script>
+    <style>
+        .activated {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <!--             对象语法-->
+        <div @click="handleDivClick"
+             :class="{activated: isActivated}">Hello World</div>
+
+        <!--             数组语法-->
+        <div @click="handleDivClick2"
+             :class="[activted]">Hello World</div>
+    </div>
+</body>
+<script>
+    var vm = new Vue({
+        el: "#app",
+        data: {
+            isActivated: false,
+            activted: "",
+        },
+        methods: {
+            handleDivClick: function () {
+                this.isActivated = ! this.isActivated;
+            },
+            handleDivClick2: function () {
+                this.activted = (this.activted === "activated" ? "" : "activated");
+            }
+        },
+
+    });
+</script>
+</html>

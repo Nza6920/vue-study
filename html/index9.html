@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Vue中的style绑定</title>
+    <script src="../js/vue.js"></script>
+    <style>
+        .activated {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <!--        对象语法-->
+        <div :style="styleObj" @click="handleDivClick">
+            Hello World
+        </div>
+        <!--        数组语法-->
+        <div :style="[styleObj2, {fontSize: '20px'}]" @click="handleDivClick2">
+            Hello World
+        </div>
+    </div>
+</body>
+<script>
+    var vm = new Vue({
+        el: "#app",
+        data: {
+            styleObj: {
+                color: "black",
+                padding: "10px"
+            },
+            styleObj2: {
+                color: "black",
+                padding: "10px"
+            }
+        },
+        methods: {
+            handleDivClick: function () {
+                this.styleObj.color = (this.styleObj.color === "red" ? "black" : "red");
+            },
+            handleDivClick2: function () {
+                this.styleObj2.color = (this.styleObj2.color === "red" ? "black" : "red");
+            },
+        },
+    });
+</script>
+</html>
