@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Hello World</title>
+    <script src="../js/vue.js"></script>
+</head>
+<body>
+    <div id="app">{{content}}</div>
+</body>
+<script>
+    // 原生 js 实现
+    // var dom = document.getElementById("app");
+    // dom.innerHTML = 'Hello World!';
+    var flag = true;
+    // setInterval(function () {
+    //     if (flag) {
+    //         dom.innerHTML = 'bye world';
+    //     } else {
+    //         dom.innerHTML = 'hello world';
+    //     }
+    //     flag = !flag;
+    // }, 2000);
+
+    // Vue 实现
+    var app = new Vue({
+        el: '#app',       // 接管 id 为 app 的 dom 元素
+        data: {           // 定义数据
+            content: 'hello world',
+        }
+    });
+
+    setInterval(function () {
+        if (flag) {
+            app.$data.content = 'bye world';
+
+        } else {
+            app.$data.content = 'hello world';
+        }
+        flag = ! flag;
+    }, 2000);
+</script>
+</html>
