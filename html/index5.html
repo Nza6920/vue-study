@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>模板语法</title>
+    <script src="../js/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <div v-text="name + ' Lee'"></div>
+<!--        输出原生的html-->
+        <div v-html="name + 'Lee'"></div>
+<!--        插值表达式-->
+        {{name + ' lee'}}
+    </div>
+</body>
+<script>
+    var vm = new Vue({
+        el: "#app",
+        data: {
+            name: "汤姆猫",
+        }
+    });
+</script>
+</html>
