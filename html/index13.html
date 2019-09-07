@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Vue中的set方法</title>
+    <script src="../js/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <!-- 遍历对象 -->
+        <div v-for="(item, key, index) of userInfo">
+           {{key}} -- {{index}} -- {{item}}
+        </div>
+        <br>
+        <br>
+
+        <!-- 遍历数组 -->
+        <div v-for="(item, index) of userInfos">
+            {{index}} -- {{item}}
+        </div>
+    </div>
+</body>
+<script>
+    // vue操作数组的方法: push pop shift unshift splice sort reverse
+    var vm = new Vue({
+        el: "#app",
+        data: {
+            userInfo: {
+                name: "nza",
+                age: 20,
+                gender: "male",
+                salary: "99999"
+            },
+            userInfos: [1,2,3,4]
+        },
+        methods: {
+            setUserInfo: function (key, value) {
+                // 调用实例的 set 方法设置对象的属性
+                this.$set(this.userInfo, key, value)
+            },
+            setUserInfos: function (index, newValue) {
+                // 调用实例的 set 方法设置数组的值
+                this.$set(this.userInfos, index, newValue);
+            }
+        }
+    });
+</script>
+</html>
