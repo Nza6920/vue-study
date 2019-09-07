@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Vue中的列表渲染(数组)</title>
+    <script src="../js/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <!-- 使用 of 要比 in 性能要好 -->
+        <!-- 绑定一个 key 值可以提高性能 -->
+        <div v-for="(item, index) of list"
+             :key="item.id">
+            {{item.id}} -- {{item.name}}
+        </div>
+
+        <br>
+        <br>
+        <br>
+
+        <!-- template 占位符并不会被渲染到页面上 -->
+        <template v-for="(item, index) of list"
+             :key="item.id">
+            <div>
+                {{item.id}}
+            </div>
+            --
+            <span>
+                 {{item.name}}
+            </span>
+        </template>
+    </div>
+</body>
+<script>
+    // vue操作数组的方法: push pop shift unshift splice sort reverse
+    var vm = new Vue({
+        el: "#app",
+        data: {
+            list: [
+                {
+                    id: "1640610102",
+                    name: "nza"
+                },
+                {
+                    id: "1640610105",
+                    name: "jmy"
+                },
+                {
+                    id: "1640610104",
+                    name: "jtp"
+                },
+                {
+                    id: "1640610103",
+                    name: "lsw"
+                }
+            ]
+        }
+    });
+</script>
+</html>
