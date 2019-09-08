@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Vue中组件使用的细节点(ref引用)</title>
+    <script src="../js/vue.js"></script>
+</head>
+<body>
+    <div id="root">
+        <div ref='hello'
+             @click="handleClick">
+            Hello World
+        </div>
+
+        <div>
+            <counter ref="cOne" @change="handleChange"></counter>
+            <counter ref="cTwo" @change="handleChange"></counter>
+            <div>
+                <h1>{{total}}</h1>
+            </div>
+        </div>
+    </div>
+</body>
+<script>
+
+    Vue.component('counter', {
+        template: '<h1 @click="handleClick2">{{number}}</h1>',
+        data: function () {
+            return {
+                number: 0,
+            };
+        },
+        methods: {
+            handleClick2: function () {
+                this.number ++;
+                // 向外触发 change 事件
+                this.$emit('change');
+            }
+        }
+    });
+
+    var vm = new Vue({
+        el: "#root",
+        data: {
+            total: 0
+        },
+        methods: {
+            handleClick: function() {
+                alert(this.$refs.hello.innerHTML);
+            },
+            handleChange: function () {
+                // 这里的ref获取到的子组件的引用
+                this.total = this.$refs.cOne.number + this.$refs.cTwo.number;
+            }
+        }
+    });
+</script>
+</html>

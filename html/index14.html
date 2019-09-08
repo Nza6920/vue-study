@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Vue中组件使用的细节点(is属性)</title>
+    <script src="../js/vue.js"></script>
+</head>
+<body>
+    <div id="root">
+        <table>
+            <tbody>
+                <!-- h5的规范中tbody中只可以放tr, 这样写会导致子组件与table同级 -->
+                <!-- <row></row> -->
+                <!-- <row></row> -->
+                <!-- <row></row> -->
+
+                <!-- 解决方法 -->
+                <tr is="row"></tr>
+                <tr is="row"></tr>
+                <tr is="row"></tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+<script>
+    Vue.component('row', {
+        data: function() {       // 子组件定义data时必须是个函数, 返回需要定义的data
+            return {
+                content: 'this is content'
+            }
+        },
+        template: '<tr><td>{{content}}</td></tr>'
+    });
+
+    var vm = new Vue({
+        el: "#root",
+        data: {
+        },
+
+    });
+</script>
+</html>
