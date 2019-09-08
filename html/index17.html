@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Vue中组件参数校验与非Props特性</title>
+    <script src="../js/vue.js"></script>
+</head>
+<body>
+<div id="root">
+    <child :content="123" :content2="'123456'"></child>
+</div>
+</body>  
+<script>
+    // 全局子组件
+    Vue.component("child", {
+        props: {
+            content: [Number, String],       // 限定接收的类型
+            content2: {
+                type: String,
+                required: false,               // 该属性是否必须
+                default: 'default value',
+                validator: function (value) {  // 校验器, value是传入的内容
+                    return value.length > 5;
+                }
+            }
+        },
+        template: '<h1>{{content}} -- {{content2}}</h1>'
+    });
+
+    var vm = new Vue({
+        el: "#root",
+        data: {
+
+        }
+    })
+</script>
+</html>
