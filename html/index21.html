@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Vue中作用域插槽</title>
+    <script src="../js/vue.js"></script>
+</head>
+<body> 
+<div id="root">
+    <child>
+        <!-- 绑定一个作用域 props, 循环每一项的值会保存在作用域中 -->
+        <template slot-scope="props">
+            <li><h1>{{props.item}}</h1></li>
+        </template>
+    </child>
+</div>
+</body>  
+<script>
+
+    Vue.component('child', {
+        data: function() {
+            return {
+                list: [1, 2, 3, 4]
+            };
+        },
+       template: `<div>
+                    <ul>
+                        <slot v-for="item of list" :item="item">
+
+                        </slot>
+                    </ul>
+                  </div>`
+    });
+
+    var vm = new Vue({
+        el: "#root"
+    })
+</script>
+</html>

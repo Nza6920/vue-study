@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Vue中使用插槽</title>
+    <script src="../js/vue.js"></script>
+</head>
+<body> 
+<div id="root">
+    <child>
+        <h2>Niu</h2>
+    </child>
+
+    <child2>
+        <!-- 给插槽命名 -->
+        <div class="header" slot="header">header</div>
+        <div class="footer" slot="footer">footer</div>
+    </child2>
+</div>
+</body>  
+<script>
+    Vue.component('child', {
+        // slot 插槽(具名插槽)
+        template: `<div>
+                        <h1>Hello</h1>
+                        <slot><h1>默认内容</h1></slot>
+                    </div>`
+    });
+
+    Vue.component('child2', {
+        template: `<div>
+                        <slot name="header">
+                            默认header
+                        </slot>
+                        <div class="child2">child2</div>
+                        <slot name="footer">
+                            默认footer
+                        </slot>
+                    </div>`
+    });
+
+    var vm = new Vue({
+        el: "#root"
+    })
+
+</script>
+</html>
