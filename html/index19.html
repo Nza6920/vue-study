@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Vue中非父子组件间的传值(BUS/总线/发布订阅模式/观察者模式)</title>
+    <script src="../js/vue.js"></script>
+</head>
+<body> 
+<div id="root">
+    <!-- 实现点击组件交换值的功能 -->
+    <child content="Niu"></child>
+    <child2 content="zian"></child2>
+</div>
+</body>  
+<script>
+    var isChanged = false;
+    // 在Vue的实例上挂载一个bus属性
+    Vue.prototype.bus = new Vue();
+
+    Vue.component('child', {
+        template: '<h1 @click="handleClick">{{selfContent}}</h1>',
+        data: function() {
+            return {
+                selfContent: this.content,
+                flag: false
+            }
+        },
+        props: {
+            content: {
+                type: String
+            }
+        },
+        methods: {
+            handleClick: function () {
+                this.bus.$emit('change2', this.selfContent)
+            }
+        },
+        // 利用生命周期钩子函数, 监听change事件
+        mounted: function () {
+            var this_ = this;
+            this.bus.$on('change', function (msg) {
+                if (!isChanged) {
+                    isChanged = true;
+                    this_.bus.$emit('change2', this_.selfContent);
+                }
+                this_.selfContent = msg;
+            })
+        },
+    });
+
+    Vue.component('child2', {
+        template: '<h1 @click="handleClick">{{selfContent}}</h1>',
+        data: function() {
+            return {
+                selfContent: this.content
+            }
+        },
+        props: {
+            content: {
+                type: String
+            }
+        },
+        methods: {
+            handleClick: function () {
+                this.bus.$emit('change', this.selfContent)
+            }
+        },
+        // 利用生命周期钩子函数, 监听change事件
+        mounted: function () {
+            var this_ = this;
+            this.bus.$on('change2', function (msg) {
+                if (!isChanged) {
+                    isChanged = true;
+                    this_.bus.$emit('change', this_.selfContent);
+                }
+                this_.selfContent = msg;
+            })
+        },
+        updated: function () {
+            isChanged = false;
+        }
+    });
+
+    var vm = new Vue({
+        el: "#root",
+    })
+</script>
+</html>
