@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Vue中使用animate.css库(使用库)</title>
+    <script src="../js/vue.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/animate.css">
+</head>
+<body> 
+<div id="root">
+    <!-- transition 包裹的标签会有动画效果 -->
+    <div style="width: 200px; height: 90px;">
+        <transition name="fade"
+                    enter-active-class="animated swing"
+                    leave-active-class="animated rollOut">
+            <div v-if="show">
+                <h1>Hello World</h1>
+            </div>
+        </transition>
+    </div>
+    <button @click="handleClick">切换</button>
+</div>
+</body>  
+<script>
+    var vm = new Vue({
+        el: "#root",
+        data: {
+            show: true,
+        },
+        methods: {
+            handleClick: function () {
+                this.show = ! this.show
+            }
+        }
+    })
+</script>
+</html>
